@@ -45,7 +45,7 @@ class _LoginScreenState extends State<LoginScreen> {
         );
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Usuu00e1rio ou senha invu00e1lidos')),
+          SnackBar(content: Text('Usuario ou senha individual')),
         );
       }
     }
@@ -95,7 +95,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               SizedBox(height: 16),
               Text(
-                'Dica: Se nu00e3o houver usuu00e1rios cadastrados, use "admin" como usuu00e1rio e senha.',
+                'Dica: Se número houver usuario cadastrados, use "admin" como usuario e senha.',
                 textAlign: TextAlign.center,
                 style: TextStyle(color: Colors.grey),
               ),

@@ -38,8 +38,8 @@ class _ProdutoListScreenState extends State<ProdutoListScreen> {
     final _formKey = GlobalKey<FormState>();
     final _idController = TextEditingController(text: produto?.id ?? '');
     final _nomeController = TextEditingController(text: produto?.nome ?? '');
-    final _precoVendaController = TextEditingController(
-        text: produto?.precoVenda.toString() ?? '0.0');
+    final _precoVendaController =
+        TextEditingController(text: produto?.precoVenda.toString() ?? '0.0');
     final _custoController =
         TextEditingController(text: produto?.custo.toString() ?? '0.0');
     final _quantidadeEstoqueController = TextEditingController(
@@ -76,21 +76,21 @@ class _ProdutoListScreenState extends State<ProdutoListScreen> {
                     isRequired: true,
                   ),
                   CustomTextField(
-                    label: 'Cu00f3digo de Barra',
+                    label: 'Código de Barra',
                     controller: _codigoBarraController,
                     isRequired: true,
                   ),
                   CustomTextField(
-                    label: 'Preu00e7o de Venda',
+                    label: 'Preço de Venda',
                     controller: _precoVendaController,
                     keyboardType: TextInputType.number,
                     isRequired: true,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Por favor, informe o preu00e7o de venda';
+                        return 'Por favor, informe o preço de venda';
                       }
                       if (double.tryParse(value) == null) {
-                        return 'Informe um valor vau00e1lido';
+                        return 'Informe um valor valido';
                       }
                       return null;
                     },
@@ -105,7 +105,7 @@ class _ProdutoListScreenState extends State<ProdutoListScreen> {
                         return 'Por favor, informe o custo';
                       }
                       if (double.tryParse(value) == null) {
-                        return 'Informe um valor vau00e1lido';
+                        return 'Informe um valor de Venda';
                       }
                       return null;
                     },
@@ -120,7 +120,7 @@ class _ProdutoListScreenState extends State<ProdutoListScreen> {
                         return 'Por favor, informe a quantidade';
                       }
                       if (int.tryParse(value) == null) {
-                        return 'Informe um valor vau00e1lido';
+                        return 'Informe um valor de Venda';
                       }
                       return null;
                     },
@@ -241,9 +241,9 @@ class _ProdutoListScreenState extends State<ProdutoListScreen> {
     final confirmed = await showDialog<bool>(
           context: context,
           builder: (context) => AlertDialog(
-            title: Text('Confirmar exclusu00e3o'),
-            content:
-                Text('Tem certeza que deseja excluir o produto ${produto.nome}?'),
+            title: Text('Confirmar excluir'),
+            content: Text(
+                'Tem certeza que deseja excluir o produto ${produto.nome}?'),
             actions: [
               TextButton(
                 onPressed: () => Navigator.pop(context, false),
@@ -265,7 +265,7 @@ class _ProdutoListScreenState extends State<ProdutoListScreen> {
       if (success) {
         _loadProdutos();
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Produto excluu00eddo com sucesso!')),
+          SnackBar(content: Text('Produto excluido com sucesso!')),
         );
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -310,7 +310,8 @@ class _ProdutoListScreenState extends State<ProdutoListScreen> {
                           children: [
                             IconButton(
                               icon: Icon(Icons.edit, color: Colors.blue),
-                              onPressed: () => _showProdutoForm(produto: produto),
+                              onPressed: () =>
+                                  _showProdutoForm(produto: produto),
                             ),
                             IconButton(
                               icon: Icon(Icons.delete, color: Colors.red),

@@ -44,7 +44,7 @@ class _UsuarioListScreenState extends State<UsuarioListScreen> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text(isEditing ? 'Editar Usuu00e1rio' : 'Novo Usuu00e1rio'),
+        title: Text(isEditing ? 'Editar Usuário' : 'Novo Usuário'),
         content: Form(
           key: _formKey,
           child: SingleChildScrollView(
@@ -98,11 +98,15 @@ class _UsuarioListScreenState extends State<UsuarioListScreen> {
                 if (success) {
                   _loadUsuarios();
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('Usuu00e1rio ${isEditing ? 'atualizado' : 'adicionado'} com sucesso!')),
+                    SnackBar(
+                        content: Text(
+                            'Usuário ${isEditing ? 'atualizado' : 'adicionado'} com sucesso!')),
                   );
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('Erro ao ${isEditing ? 'atualizar' : 'adicionar'} usuu00e1rio')),
+                    SnackBar(
+                        content: Text(
+                            'Erro ao ${isEditing ? 'atualizar' : 'adicionar'} usuario')),
                   );
                 }
               }
@@ -116,23 +120,25 @@ class _UsuarioListScreenState extends State<UsuarioListScreen> {
 
   Future<void> _deleteUsuario(Usuario usuario) async {
     final confirmed = await showDialog<bool>(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text('Confirmar exclusu00e3o'),
-        content: Text('Tem certeza que deseja excluir o usuu00e1rio ${usuario.nome}?'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context, false),
-            child: Text('Cancelar'),
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text('Confirmar excluir'),
+            content: Text(
+                'Tem certeza que deseja excluir o usuário ${usuario.nome}?'),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context, false),
+                child: Text('Cancelar'),
+              ),
+              ElevatedButton(
+                onPressed: () => Navigator.pop(context, true),
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+                child: Text('Excluir'),
+              ),
+            ],
           ),
-          ElevatedButton(
-            onPressed: () => Navigator.pop(context, true),
-            style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-            child: Text('Excluir'),
-          ),
-        ],
-      ),
-    ) ?? false;
+        ) ??
+        false;
 
     if (confirmed) {
       final success = await _controller.delete(usuario.id);
@@ -140,11 +146,11 @@ class _UsuarioListScreenState extends State<UsuarioListScreen> {
       if (success) {
         _loadUsuarios();
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Usuu00e1rio excluu00eddo com sucesso!')),
+          SnackBar(content: Text('Usuário excluido com sucesso!')),
         );
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Erro ao excluir usuu00e1rio')),
+          SnackBar(content: Text('Erro ao excluir usuário')),
         );
       }
     }
@@ -154,13 +160,13 @@ class _UsuarioListScreenState extends State<UsuarioListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Usuu00e1rios'),
+        title: Text('Usuario'),
         centerTitle: true,
       ),
       body: _isLoading
           ? Center(child: CircularProgressIndicator())
           : _usuarios.isEmpty
-              ? Center(child: Text('Nenhum usuu00e1rio cadastrado'))
+              ? Center(child: Text('Nenhum usuário cadastrado'))
               : ListView.builder(
                   itemCount: _usuarios.length,
                   itemBuilder: (context, index) {
@@ -175,7 +181,8 @@ class _UsuarioListScreenState extends State<UsuarioListScreen> {
                           children: [
                             IconButton(
                               icon: Icon(Icons.edit, color: Colors.blue),
-                              onPressed: () => _showUsuarioForm(usuario: usuario),
+                              onPressed: () =>
+                                  _showUsuarioForm(usuario: usuario),
                             ),
                             IconButton(
                               icon: Icon(Icons.delete, color: Colors.red),
@@ -190,7 +197,7 @@ class _UsuarioListScreenState extends State<UsuarioListScreen> {
       floatingActionButton: FloatingActionButton(
         onPressed: () => _showUsuarioForm(),
         child: Icon(Icons.add),
-        tooltip: 'Adicionar Usuu00e1rio',
+        tooltip: 'Adicionar Usuário',
       ),
     );
   }

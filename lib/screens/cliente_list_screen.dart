@@ -39,14 +39,19 @@ class _ClienteListScreenState extends State<ClienteListScreen> {
     final _idController = TextEditingController(text: cliente?.id ?? '');
     final _nomeController = TextEditingController(text: cliente?.nome ?? '');
     final _cepController = TextEditingController(text: cliente?.cep ?? '');
-    final _enderecoController = TextEditingController(text: cliente?.endereco ?? '');
-    final _bairroController = TextEditingController(text: cliente?.bairro ?? '');
-    final _cidadeController = TextEditingController(text: cliente?.cidade ?? '');
+    final _enderecoController =
+        TextEditingController(text: cliente?.endereco ?? '');
+    final _bairroController =
+        TextEditingController(text: cliente?.bairro ?? '');
+    final _cidadeController =
+        TextEditingController(text: cliente?.cidade ?? '');
     final _ufController = TextEditingController(text: cliente?.uf ?? '');
-    final _documentoController = TextEditingController(text: cliente?.documento ?? '');
+    final _documentoController =
+        TextEditingController(text: cliente?.documento ?? '');
     final _emailController = TextEditingController(text: cliente?.email ?? '');
-    final _telefoneController = TextEditingController(text: cliente?.telefone ?? '');
-    
+    final _telefoneController =
+        TextEditingController(text: cliente?.telefone ?? '');
+
     TipoCliente _tipoCliente = cliente?.tipo ?? TipoCliente.fisica;
     final bool isEditing = cliente != null;
 
@@ -76,7 +81,7 @@ class _ClienteListScreenState extends State<ClienteListScreen> {
                     children: [
                       Expanded(
                         child: RadioListTile<TipoCliente>(
-                          title: Text('Fu00edsica'),
+                          title: Text('Pessoa Física'),
                           value: TipoCliente.fisica,
                           groupValue: _tipoCliente,
                           onChanged: (value) {
@@ -88,7 +93,7 @@ class _ClienteListScreenState extends State<ClienteListScreen> {
                       ),
                       Expanded(
                         child: RadioListTile<TipoCliente>(
-                          title: Text('Juru00eddica'),
+                          title: Text('Pessoa Jurídica'),
                           value: TipoCliente.juridica,
                           groupValue: _tipoCliente,
                           onChanged: (value) {
@@ -112,7 +117,7 @@ class _ClienteListScreenState extends State<ClienteListScreen> {
                     keyboardType: TextInputType.number,
                   ),
                   CustomTextField(
-                    label: 'Endereu00e7o',
+                    label: 'Endereço',
                     controller: _enderecoController,
                   ),
                   CustomTextField(
@@ -176,11 +181,15 @@ class _ClienteListScreenState extends State<ClienteListScreen> {
                   if (success) {
                     _loadClientes();
                     ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Cliente ${isEditing ? 'atualizado' : 'adicionado'} com sucesso!')),
+                      SnackBar(
+                          content: Text(
+                              'Cliente ${isEditing ? 'atualizado' : 'adicionado'} com sucesso!')),
                     );
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Erro ao ${isEditing ? 'atualizar' : 'adicionar'} cliente')),
+                      SnackBar(
+                          content: Text(
+                              'Erro ao ${isEditing ? 'atualizar' : 'adicionar'} cliente')),
                     );
                   }
                 }
@@ -195,23 +204,25 @@ class _ClienteListScreenState extends State<ClienteListScreen> {
 
   Future<void> _deleteCliente(Cliente cliente) async {
     final confirmed = await showDialog<bool>(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text('Confirmar exclusu00e3o'),
-        content: Text('Tem certeza que deseja excluir o cliente ${cliente.nome}?'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context, false),
-            child: Text('Cancelar'),
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text('Confirmar exclusu00e3o'),
+            content: Text(
+                'Tem certeza que deseja excluir o cliente ${cliente.nome}?'),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context, false),
+                child: Text('Cancelar'),
+              ),
+              ElevatedButton(
+                onPressed: () => Navigator.pop(context, true),
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+                child: Text('Excluir'),
+              ),
+            ],
           ),
-          ElevatedButton(
-            onPressed: () => Navigator.pop(context, true),
-            style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-            child: Text('Excluir'),
-          ),
-        ],
-      ),
-    ) ?? false;
+        ) ??
+        false;
 
     if (confirmed) {
       final success = await _controller.delete(cliente.id);
@@ -251,7 +262,8 @@ class _ClienteListScreenState extends State<ClienteListScreen> {
                         subtitle: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('${cliente.tipo == TipoCliente.fisica ? 'CPF' : 'CNPJ'}: ${cliente.documento}'),
+                            Text(
+                                '${cliente.tipo == TipoCliente.fisica ? 'CPF' : 'CNPJ'}: ${cliente.documento}'),
                             Text('Telefone: ${cliente.telefone}'),
                           ],
                         ),
@@ -260,7 +272,8 @@ class _ClienteListScreenState extends State<ClienteListScreen> {
                           children: [
                             IconButton(
                               icon: Icon(Icons.edit, color: Colors.blue),
-                              onPressed: () => _showClienteForm(cliente: cliente),
+                              onPressed: () =>
+                                  _showClienteForm(cliente: cliente),
                             ),
                             IconButton(
                               icon: Icon(Icons.delete, color: Colors.red),

@@ -11,7 +11,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Sistema de Foru00e7a de Vendas'),
+        title: Text('Sistema de Força de Vendas'),
         centerTitle: true,
         actions: [
           IconButton(
